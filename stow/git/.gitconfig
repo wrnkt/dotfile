@@ -1,0 +1,10 @@
+[core]
+	editor = nvim
+[push]
+	autoSetupRemote = true
+[alias]
+    show-files = show --name-status --pretty=reference
+    head-tree = diff-tree --no-commit-id --name-status -r
+    commit-drift = rev-list --left-right --count
+    commit-drift-all = "!f(){ base=${1:-HEAD}; git for-each-ref --format='%(refname:short)' refs/heads | while read branch; do set -- $(git rev-list --left-right --count \"$branch...$base\"); printf '%4s behind  %4s ahead  %s\n' \"$1\" \"$2\" \"$branch\"; done | sort -n -k1,1 -k3,3; }; f"
+    ; ac = "!f() { msg=\"${@: -1}\"; set -- \"${@:1:$(($#-1))}\"; git add \"$@\" && git commit -m \"$msg\"; }; f"
